@@ -58,3 +58,76 @@ double型は存在しないので、恐らく64bit浮動小数点型
 
 ### list/stringの扱い
 
+##### list
+配列です。
+```python
+>>> a=[1,2,3,4,5]
+>>> a[3]    #1つ目の要素を0番目として扱います
+4
+>>> print(a)
+[1, 2, 3, 4, 5]
+>>> a[5]    #6番目にアクセスしようとするとエラーが出ます
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+>>> a[-1]   #負の数は右から何番目かでアクセスできます。
+5
+>>> a[-2]
+4
+>>> a[2]=4  #値は変更可
+>>> a
+[1, 2, 4, 4, 5]
+>>> a[:3]   #独特だけど部分配列を作ります（スライスと言います）
+[1, 2, 4]
+>>> a[1:]
+[2, 4, 4, 5]
+```
+
+このリストには多様な関数が用意されています。
+```python
+>>> max(a)
+5
+>>> sum(a)
+16
+>>> len(a)  #配列の長さ（配列の要素数）
+5
+>>> map(str,a)  #aの各要素をstrに変えます。
+<map object at 0x05CE3C10>
+>>> list(map(str,a))    #ただ、Python3ではmap objectというもので返されるのでlistにキャスト
+['1', '2', '4', '4', '5']
+```
+
+__問題__ a=[2,3,5,4,42,625,2,7,52,435,46]の平均値を求めてください。
+
+##### string
+stringも配列と同様に扱えます。また、string専用の関数も結構あります。
+```python
+>>> s="TSG_sig-beginners-2018"
+>>> len(s)
+22
+>>> s[14]
+'e'
+>>> s[:8]
+'TSG_sig-'
+>>> s[3:19]
+'_sig-beginners-2'
+>>> s[12:-4]
+'nners-'
+>>> s.replace("sig","SIG")  #文字列の置換
+'TSG_SIG-beginners-2018'
+>>> s[:3].lower()   #小文字に変更。大文字に変更はupper。
+'tsg'
+>>> s[3]="-"    #ただ、文字の変更ができません。
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'str' object does not support item assignment
+>>> slist=list(s)   #なので、一回リストにして
+>>> slist
+['T', 'S', 'G', '-', 's', 'i', 'g', '-', 'b', 'e', 'g', 'i', 'n', 'n', 'e', 'r', 's', '-', '2', '0', '1', '8']
+>>> slist[3]="-"    #これは文字列全体を変更しているのでOKです。
+>>> "".join(slist)  #「中身が全て文字列のリスト」→stringはこのようにします。各要素の間に空文字を突っ込んでいる感じ。
+'TSG-sig-beginners-2018'
+>>> s+="/04/26"     #ちょっと分かりづらいけど、s=s+"/04/26"で文字列全体を変更しているのでOK
+>>> s
+'TSG_sig-beginners-2018/04/26'
+```
