@@ -104,6 +104,10 @@ __問題__ a=[2,3,5,4,42,625,2,7,52,435,46]の平均値を求めてください�
 ##### string
 stringも配列と同様に扱えます。また、string専用の関数も結構あります。
 ```python
+>>> a="TSG_sig-beginners"
+>>> b="-2018"
+>>> a+b #文字列の連結
+'TSG_sig-beginners-2018'
 >>> s="TSG_sig-beginners-2018"
 >>> s*3
 'TSG_sig-beginners-2018/04/26TSG_sig-beginners-2018/04/26TSG_sig-beginners-2018/04/26'
@@ -131,6 +135,8 @@ TypeError: 'str' object does not support item assignment
 >>> slist[3]="-"    #これは文字列全体を変更しているのでOKです。
 >>> "".join(slist)  #「中身が全て文字列のリスト」→stringはこのようにします。各要素の間に空文字を突っ込んでいる感じ。
 'TSG-sig-beginners-2018'
+>>> "a".join(slist)
+'TaSaGa-asaiaga-abaeagaiananaearasa-a2a0a1a8'
 >>> s+="/04/26"     #ちょっと分かりづらいけど、s=s+"/04/26"で文字列全体を変更しているのでOK
 >>> s
 'TSG_sig-beginners-2018/04/26'
@@ -192,3 +198,5 @@ __問題2__<br>
 を返します。a,bに対してこれの結果を出力するプログラムを実装してください。
 
 ***
+
+### for
