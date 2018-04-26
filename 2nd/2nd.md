@@ -178,6 +178,8 @@ True
 True
 >>> False or False
 False
+>>> not True
+False
 >>> True ^ True
 False
 >>> False ^ True
@@ -185,6 +187,11 @@ True
 ```
 __問題1__<br>
 aが奇数なら"odd",偶数なら"even"を出力してください。
+
+```
+a=int(input())  #inputは1行入力を文字列として受け取ります。
+# 処理
+```
 
 __問題2__<br>
 宇宙船演算子<=>というものがあります。Pythonには実装されていませんが、a<=>bに対し、
@@ -200,3 +207,4 @@ __問題2__<br>
 ***
 
 ### for
+繰り返します。
