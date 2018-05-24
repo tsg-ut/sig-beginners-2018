@@ -253,12 +253,12 @@ ret = 0 # 答え
 while True: #取り敢えず無限ループさせる
     flag = False
     for i in range(n):
-        if a[i]%2 == 0:
+        if a[i]%2 == 0: # a[i]が2で割れるなら割る
             a[i]//=2
-        else:
+        else: # 割れないならflagを切り替える
             flag=True
             break
-    if flag:
+    if flag: #flagが変わっている==2で割り切れない数があるなら終わり
         break
     ret+=1
 print(ret)
