@@ -277,7 +277,15 @@ def sayHello(name):
 
 sayHello("tourist") # tourist says "Hello"と出力される
 ```
-こんな感じで。こう考えると、今まで使ってきたprintすらも何も値を返さない関数です。
+こんな感じで。こう考えると、今まで使ってきたprintすらも何も値を返さない関数です。実際に、
+```python
+>>> print(sayHello("toruist"))
+breaking news
+toruist says "Hello"
+None
+```
+と、「何もない」という型の「None」というものが返ってきます。
+
 
 ところで、今何気なく`\"`を使いましたが、これの説明をしていませんでした。ちょっと文字列に戻ります。
 
