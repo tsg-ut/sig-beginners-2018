@@ -337,3 +337,17 @@ This is """Test"""
 何に使うねん。
 
 ***
+
+#### 再帰関数
+```python
+def rec(n):
+    if n>0:
+        print("Hello!!!")
+        rec(n-1)
+
+rec(5) # Helloが5回出てくる
+```
+関数の中で全く同じ関数を呼び出すことも可能です。
+
+
+__問題__ fizzbuzzを書いてください。
