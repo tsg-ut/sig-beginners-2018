@@ -247,6 +247,21 @@ string = input().split() #1行入力を受け取ってそれを空白区切り�
 a = []                  #stringを数字にするやつ
 for s in string:        #stringの各要素を
     a.append(int(s))    #intにしてaに追加していく
+
+# ここから解答編
+ret = 0 # 答え
+while True: #取り敢えず無限ループさせる
+    flag = False
+    for i in range(n):
+        if a[i]%2 == 0:
+            a[i]//=2
+        else:
+            flag=True
+            break
+    if flag:
+        break
+    ret+=1
+print(ret)
 ```
 
 さて、出来たでしょうか？最後の問題はちょっと大変だったかもしれません。でも、不可能では無かったと思います。こんな感じの問題も競プロにはあるので、是非練習も兼ねて参加してみるといいと思います。
