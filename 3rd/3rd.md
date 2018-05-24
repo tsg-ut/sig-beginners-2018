@@ -152,6 +152,15 @@ a = int(string[0])
 b = int(string[1])
 ```
 
+__splitについて__
+```python
+>>> s="hoge hoge fuga fuga"
+>>> s.split("g") #gの位置で区切った配列にする
+['ho', 'e ho', 'e fu', 'a fu', 'a']
+>>> s.split() #スペースで区切った配列にする
+['hoge', 'hoge', 'fuga', 'fuga']
+```
+
 #### ABC081A - Placing Marbles
 すぬけ君は 1,2,3 の番号がついた 3 つのマスからなるマス目を持っています。 各マスには 0 か 1 が書かれており、マス i には si が書かれています。
 
