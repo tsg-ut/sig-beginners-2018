@@ -64,6 +64,9 @@ print("\n".join(["FizzBuzz" if i%15==0 else "Fizz" if i%3==0 else "Buzz" if i%5=
 >>> f = lambda x:x*x
 >>> f(3)
 9
+>>> f = lambda x,y: x**y
+>>> f(3,4)
+81
 ```
 このfは関数で、
 ```python
