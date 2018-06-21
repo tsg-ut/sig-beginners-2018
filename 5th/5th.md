@@ -47,7 +47,7 @@ __問題__ 何かメソッドを持つクラスを作ってください。
 以下のコードを見てみます。
 ```python
 class Human:
-    def __init__(self, name):
+    def __init__(self, name=""):
         self.name = name
         print("your name is %s!"%self.name)
     
@@ -74,4 +74,34 @@ del fiord   #__del__が呼ばれる
 __問題__ さっき作ったクラスにコンストラクタとデストラクタを定義してください。
 
 ### 継承
-ゲームで自キャラの他にCPUが欲しいです。
+ゲームで自キャラの他にCPUが欲しいです。この時に`Character`というクラスの他に、「CPU独自の関数」というのも欲しくなります。こんな時に、`CPU`というクラスを定義したいです。しかし、殆ど同じ中身が同じものをコピペするのはものすごく効率が悪いです。（見づらくなりますし）
+
+ということで、`CPU`というクラスを作るのですが、`Character`クラスの中身を全部持ってきたいときに使うのが継承です。
+
+```python
+class Human:
+    def __init__(self, name=""):
+        self.name = name
+        print("your name is %s!"%self.name)
+    
+    def Greet(self):
+        print("%s says \"Hello!\""%self.name)
+
+class fiord(Human):
+    def __init__(self, name=""):
+        print("this class is fiord")
+        super().__init__(name)
+    
+    def hoge(self):
+        print("hogehoge%s"%self.name)
+
+glacier = fiord("fiord") #2行printされます
+print(glacier.name) #fiord
+glacier.hoge()  #fiordが用いられる
+glacier.Greet() #fiordが用いられる
+```
+因みに、デストラクタ入れていたらバグるので消しました。
+
+という感じで、`Human`クラスの中身が`fiord`クラスに入ります。このときの`Human`は親クラス、`fiord`は子クラスです。
+
+当然といえば当然ですが、`fiord`クラスで定義した変数を`Human`のメソッドで用いることは出来ません。使いたいときはどうすればいいでしょうか？
