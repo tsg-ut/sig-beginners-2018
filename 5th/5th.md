@@ -124,3 +124,28 @@ glacier.Greet() # 再定義した方が使われる
 ```
 
 というように上書きされます。因みに、他の言語では「オーバーロード」という概念があったりします。これは、引数の個数や型を変えることにより用いられる関数（同じ名前）を使い分けることです。Pythonにはありません。
+
+実は多重継承という概念もあるのですが、変数の衝突などが複雑になります。この時間で説明がちょっと難しいので、[インターネットの記事](https://qiita.com/Tocyuki/items/155ec12bcd087803c817)を参考にしてみてください。
+
+### privateとpublic
+クラスは最後（とても速い）。今までのクラスでは普通に`glacier.name`でアクセスが出来ます。
+
+ここでWebサービスを考えましょう。ログインが必要なタイプで、各ユーザーをクラスにまとめています。こんな時にユーザーの情報が外側でアクセスできるのが割と不味いらしいです（自分は理解していません）
+
+ということで、外部からアクセスを許すか否かちゃんと決める必要があります。Pythonでは外部からアクセスを許さない場合のみ、加工を施します。
+
+```python
+class fiord(Human):
+    def __init__(self, name=""):
+        super().__init__(name)
+        print("this class is fiord")
+    
+    def __hoge(self):
+        print("hogehoge%s"%self.name)
+    
+    def Greet(self):
+        print("My name is fiord")
+
+glacier = fiord("fiord")
+glacier.__hoge() # エラーが出る
+```
