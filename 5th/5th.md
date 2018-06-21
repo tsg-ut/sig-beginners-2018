@@ -89,8 +89,8 @@ class Human:
 
 class fiord(Human):
     def __init__(self, name=""):
-        print("this class is fiord")
         super().__init__(name)
+        print("this class is fiord")
     
     def hoge(self):
         print("hogehoge%s"%self.name)
@@ -104,3 +104,23 @@ glacier.Greet() #fiordが用いられる
 という感じで、`Human`クラスの中身が`fiord`クラスに入ります。このときの`Human`は親クラス、`fiord`は子クラスです。`super().__init__()`と謎がありますが、これは親クラスのコンストラクタを呼んでいます。
 
 当然といえば当然ですが、`fiord`クラスで定義した変数を`Human`のメソッドで用いることは出来ません。使いたいときはどうすればいいでしょうか？
+
+### オーバーライド
+継承による関数の書き換えです。さっき`__init__`がオーバーライドされていたんですが…
+```python
+class fiord(Human):
+    def __init__(self, name=""):
+        super().__init__(name)
+        print("this class is fiord")
+    
+    def hoge(self):
+        print("hogehoge%s"%self.name)
+    
+    def Greet(self):
+        print("My name is fiord")
+
+glacier = fiord("fiord")
+glacier.Greet() # 再定義した方が使われる
+```
+
+というように上書きされます。因みに、他の言語では「オーバーロード」という概念があったりします。これは、引数の個数や型を変えることにより用いられる関数（同じ名前）を使い分けることです。Pythonにはありません。
