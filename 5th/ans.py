@@ -1,4 +1,5 @@
 import random
+import re #正規表現用
 
 num = [random.randint(0, 9) for _ in range(4)] # 4つのカードを生成
 # tips: for _ in range(4)での_はfor文の中では使えませんが、被らないので2重ループが出来ます。
@@ -11,14 +12,23 @@ for i in range(1,4):
 
 cnt = 0
 
-# 余計なことを考えない
+# 余計なことを考えない入力
 def easyInput():
     return list(map(int,input("数字を4つ入力してください").split()))
+# 色々考える入力
+# 正規表現というワードがあり、文字列がちゃんとしているか調べられます。
+def hardInput():
+    s = input("数字を4つ入力してください")
+    if re.match("^(\d ){3}\d$",s):
+        return list(map(int,s.split()))
+    else:
+        return "error"
 
 while True:
     cnt+=1
-    a = easyInput()
-
+    a = hardInput()
+    if isinstance(a,str):
+        continue
     # 取り敢えずブロウを出す
     blow = 0
     for i in range(4):
