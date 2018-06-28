@@ -163,6 +163,48 @@ coef = pd.DataFrame()
 coef["name"] = boston.feature_names
 coef["coef"] = model.coef_
 print(coef)
+
+#@title cross validation
+from sklearn.model_selection import KFold
+fromsklearn.metrics import accuracy_score
+
+# alphaは指数的に等間隔に20分割
+alpha_list = np.geomspace(10**-3, 10**2, 20)
+print("alpha =", alpha_list)
+
+# 記録用。あとでグラフプロットに使います
+scores_train = []
+scores_test = []
+
+for alpha in alpha_list:
+    # データセットをK回テストします（その中で分割方法を変える）
+    kf = KFold(n_splits=10,random_state=20180628)
+    scores_training = []
+    scores_testing = []
+    for train_index, test_index in kf.split(X):
+        # データの分割
+        X_train_cv, X_test_cv = X[train_index], X[test_index]
+        Y_train_cv, Y_test_cv = Y[train_index], Y[test_index]
+        
+        # 学習器
+        model_cv = Ridge(alpha = alpha)
+        model_cv.fit(X_train, Y_train)
+        
+        # 予測
+        pred_train = model.predict(X_train)
+        score_training = accuracy_score(Y_train, pred_train)
+        scores_training.append(score_training)
+        pred_test = model.predict(X_test)
+        score_test = accuracy_score(Y_test, pred_test)
+        scores_test.append(score_test)
+
+# matplotlib。x,y,labelの順
+plt.semilogx(alpha_list, scores_train, label="training")
+plt.semilogx(alpha_list, scores_test), label="test")
+plt.xlabel("alpha")
+plt.ylabel("score")
+plt.legend()
+plt.show()
 ```
 
 #### 分類問題について
