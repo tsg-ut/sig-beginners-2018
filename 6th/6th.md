@@ -163,10 +163,9 @@ coef = pd.DataFrame()
 coef["name"] = boston.feature_names
 coef["coef"] = model.coef_
 print(coef)
-
-#@title cross validation
+# cross validation
 from sklearn.model_selection import KFold
-fromsklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score
 
 # alphaは指数的に等間隔に20分割
 alpha_list = np.geomspace(10**-3, 10**2, 20)
@@ -200,7 +199,7 @@ for alpha in alpha_list:
 
 # matplotlib。x,y,labelの順
 plt.semilogx(alpha_list, scores_train, label="training")
-plt.semilogx(alpha_list, scores_test), label="test")
+plt.semilogx(alpha_list, scores_test, label="test")
 plt.xlabel("alpha")
 plt.ylabel("score")
 plt.legend()
