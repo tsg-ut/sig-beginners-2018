@@ -111,6 +111,60 @@ print("Hello,World")
 
 <!--この辺で実践をやりたい-->
 
+##### 実践
+今回はボストンの住宅価格を犯罪率や黒人の比率等々から予測します。scikit-learnというモジュールを用いて学習します。このモジュールは学習器からデータまで取り扱っているもので、とても便利です。
+
+取り敢えず、今回大量のモジュールを使うのですが、元々Pythonに入っていないもの（＝プロが作ってネットにアップしているもの）がほとんどです。何か必要になったら、ターミナル上で`pip install (必要なもの)`とするとインストールが出来ます。
+
+今回必要なものは`pandas`(表を見やすく表示できます)、`matplotlib`(グラフ描画)、`numpy`(行列演算)、`scipy`(numpyを用いた統計・科学演算)そして`sklearn`(機械学習、データセット)の5つです。
+
+```python
+# インポートしていきます
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+#データセットの取得
+from sklearn.datasets import load_boston
+# 読み込みます
+boston = load_boston()
+# bostonはdict型といって（確かやってない）配列のindexにオブジェクトを取ります。使われているindexはboston.keys()で一覧表示されます
+print(boston)
+
+# つらいのでpandas投入
+boston_df = pd.DataFrame(boston.data)
+# ラベルを追加します
+boston_df.columns = boston.feature_names
+# まだ入っていないので知りたい「価格」を追加
+boston_df["PRICE"] = boston.target
+print(boston_df)
+
+# 学習しまーす
+# 取り敢えずimport
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import train_test_split
+
+model = Ridge(alpha = 0.1) # λ=alphaとして考えていい
+
+# データについて
+X = boston.data
+Y = boston.target
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y)
+
+# trainデータで学習
+model.fit(X_train, Y_train)
+
+# 結果
+score = model.score(X_test, Y_test)
+print(score)
+
+# 詳細を見る
+coef = pd.DataFrame()
+coef["name"] = boston.feature_names
+coef["coef"] = model.coef_
+print(coef)
+```
+
 #### 分類問題について
 Deep Learningではこちらを取り上げることがとても多いです。手書き文字を認識したり（どの文字か分類します）、写真に写っているものが何か判別したり。Deep Learningやってもいいのですが、その前に普通の分類を少しだけやりましょう。
 
