@@ -165,41 +165,40 @@ coef["coef"] = model.coef_
 print(coef)
 # cross validation
 from sklearn.model_selection import KFold
-from sklearn.metrics import accuracy_score
 
 # alphaは指数的に等間隔に20分割
-alpha_list = np.geomspace(10**-3, 10**2, 20)
+alpha_list = np.geomspace(10**-5, 10**2, 50)
 print("alpha =", alpha_list)
 
 # 記録用。あとでグラフプロットに使います
-scores_train = []
-scores_test = []
+scores_trains = []
+scores_tests = []
 
-for alpha in alpha_list:
+for a in alpha_list:
     # データセットをK回テストします（その中で分割方法を変える）
     kf = KFold(n_splits=10,random_state=20180628)
     scores_training = []
-    scores_testing = []
+    scores_test = []
     for train_index, test_index in kf.split(X):
         # データの分割
         X_train_cv, X_test_cv = X[train_index], X[test_index]
         Y_train_cv, Y_test_cv = Y[train_index], Y[test_index]
         
         # 学習器
-        model_cv = Ridge(alpha = alpha)
+        model_cv = Ridge(alpha = a)
         model_cv.fit(X_train, Y_train)
         
         # 予測
-        pred_train = model.predict(X_train)
-        score_training = accuracy_score(Y_train, pred_train)
+        score_training = model.score(X_train, Y_train)
         scores_training.append(score_training)
-        pred_test = model.predict(X_test)
-        score_test = accuracy_score(Y_test, pred_test)
+        score_test = model.score(X_test, Y_test)
         scores_test.append(score_test)
+    scores_trains.append(np.mean(scores_training))
+    scores_tests.append(np.mean(scores_test))
 
 # matplotlib。x,y,labelの順
-plt.semilogx(alpha_list, scores_train, label="training")
-plt.semilogx(alpha_list, scores_test, label="test")
+#plt.semilogx(alpha_list, scores_trains, label="training")
+plt.semilogx(alpha_list, scores_tests, label="test")
 plt.xlabel("alpha")
 plt.ylabel("score")
 plt.legend()
@@ -211,11 +210,7 @@ Deep Learningではこちらを取り上げることがとても多いです。�
 
 よくある分類手法として用いられやすいのは「それがグループAに属するか属さないかの判別」です。「60歳以上であるか否か」「男性か否か」「猫か否か」みたいな感じで、ほぼ同じ学習器をたくさん作ると幸せになれます。
 
-分類も回帰と同じような感じです。y>0かy<0かで境界線を引きます。でも、これじゃあ内容同じでつまらないので、こちらは深層学習の方面からアプローチしたいと思います。
-
-深層学習はニューラルネットワークの一種です。ニューラルネットワークは神経のお話で出てくるニューロンの活性を模した数学モデルで、その神経に与えられる刺激(これらはニューロンから出ている)を`x`という行列にまとめた時、`y=wx+b>0`で発火します。具体的にはそのニューロンの刺激は`max(0,y)`となっています(reluで検索してみよう)。つまり、イメージとしては上の`y=wx`の行列を各ニューロンが持っていて、そのニューロン達がたくさん連なっているものと。
-
-という訳で理論編終了。実践に入ります。
+分類も回帰と同じような感じです。という訳で理論編終了。実践に入ります。
 
 <!--実践-->
 
